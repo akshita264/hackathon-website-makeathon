@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import os
 
-from ai_pipeline import generate_adaptive_script
+from ai_microservice.ai_pipline import generate_adaptive_script
 from accessibility_engine import build_accessibility_plan
 from tts_azure import generate_audio
 from scene_generator import create_scene

@@ -1,6 +1,5 @@
 from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.prompts import PromptTemplate
 import os
 import json
 
@@ -30,8 +29,12 @@ Content:
 {text}
 """
     )
+    chain = prompt | llm
 
-    chain = LLMChain(llm=llm, prompt=prompt)
-    response = chain.run(text=text, level=level)
+    response = chain.invoke({
+        "text": text,
+        "level": level
+    })
+    content = response.content
 
-    return json.loads(response)
+    return json.loads(content)
