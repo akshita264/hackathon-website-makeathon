@@ -1,12 +1,19 @@
-async function generateScript(text) {
+const axios = require("axios");
 
-  // Later connect LangChain microservice here
-  return [
-    {
-      scene_title: "Intro",
-      script: text
-    }
-  ];
+const FASTAPI_URL = "http://127.0.0.1:8000/process-content";
+
+async function processAIContent(text, level = "beginner") {
+  try {
+    const response = await axios.post(FASTAPI_URL, {
+      text: text,
+      level: level
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("FastAPI Error:", error.response?.data || error.message);
+    throw error;
+  }
 }
 
-module.exports = { generateScript };
+module.exports = { processAIContent };
