@@ -1,8 +1,7 @@
 const express = require("express");
-const { generateScenes } = require("../controllers/aiController");
-
 const router = express.Router();
+const { generateLesson } = require("../controllers/aiController");
 
-router.post("/generate", generateScenes);
+router.post("/ai/process", generateLesson);
 
 module.exports = router;

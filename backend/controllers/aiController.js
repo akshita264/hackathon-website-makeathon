@@ -1,14 +1,18 @@
-const { runAdaptiveEngine } = require("../services/adaptativeEngine");
+const { generateAdaptiveContent } = require("../services/aiService");
 
 exports.generateScenes = async (req, res) => {
   try {
     const { text, level, impairment } = req.body;
 
-    const scenes = await runAdaptiveEngine(text, level, impairment);
+    const result = await generateAdaptiveContent(
+      text,
+      level,
+      { impairment }
+    );
 
-    res.json({ scenes });
+    res.json(result);
   } catch (err) {
     console.log(err);
-    res.status(500).send("AI failed");
+    res.status(500).send("Python pipeline failed");
   }
 };
