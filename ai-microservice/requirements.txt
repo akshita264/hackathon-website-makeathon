@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+langchain
+langchain-openai
+openai
+azure-cognitiveservices-speech
+pydantic
+pillow
+python-dotenv
