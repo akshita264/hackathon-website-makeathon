@@ -1,59 +1,74 @@
 import Container from "../ui/Container";
-import FadeInUp from "../animations/FadeInUP";
+import FadeInUP from "../animations/FadeInUP";
 
 export default function AccessibilitySection() {
   return (
-    <section className="py-32 bg-black text-white">
+    <section className="py-32 bg-black text-white relative">
+
       <Container>
 
-        <FadeInUp>
-          <h2 className="text-3xl md:text-5xl font-bold text-center">
-            Built for <span className="text-purple-500">Every Learning Style</span>
-          </h2>
-        </FadeInUp>
+        <FadeInUP>
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-semibold leading-tight">
+              Designed for
+              <span className="text-purple-500"> Every Mind</span>
+            </h2>
 
-        <FadeInUp delay={0.2}>
-          <p className="text-center text-gray-400 mt-6 max-w-2xl mx-auto">
-            Our AI adapts lessons based on cognitive level, accessibility needs,
-            and interaction patterns — ensuring effective participation for all learners.
-          </p>
-        </FadeInUp>
+            <p className="mt-6 text-gray-400 text-lg">
+              Our adaptive engine understands cognitive context and accessibility
+              requirements to deliver personalized learning instantly.
+            </p>
+          </div>
+        </FadeInUP>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-16">
+        <div className="mt-20 grid md:grid-cols-3 gap-10">
 
-          <FadeInUp delay={0.3}>
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-purple-500/40 transition">
-              <h3 className="text-xl font-semibold mb-4">Cognitive Adaptation</h3>
+          <FadeInUP delay={0.2}>
+       <div className="group p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md
+hover:-translate-y-3 hover:shadow-2xl hover:shadow-purple-500/10
+transition-all duration-500 ease-out cursor-pointer">
+              <h3 className="text-xl font-semibold mb-4">
+                Cognitive Adaptation
+              </h3>
               <p className="text-gray-400">
-                Beginner, Intermediate, or Advanced — content adjusts automatically
-                to match knowledge level.
+                Automatically adjusts lesson complexity from beginner
+                clarity to advanced depth.
               </p>
             </div>
-          </FadeInUp>
+          </FadeInUP>
 
-          <FadeInUp delay={0.4}>
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-purple-500/40 transition">
-              <h3 className="text-xl font-semibold mb-4">Multi-Format Output</h3>
+          <FadeInUP delay={0.3}>
+   <div className="group p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md
+hover:-translate-y-3 hover:shadow-2xl hover:shadow-purple-500/10
+transition-all duration-500 ease-out cursor-pointer">
+              <h3 className="text-xl font-semibold mb-4">
+                Multi-Format Output
+              </h3>
               <p className="text-gray-400">
-                Notes, Audio Narration, Visual Summaries, and Personalized Videos —
-                generated instantly.
+                Notes, narrated lessons, visual diagrams and adaptive
+                presentations generated in seconds.
               </p>
             </div>
-          </FadeInUp>
+          </FadeInUP>
 
-          <FadeInUp delay={0.5}>
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-purple-500/40 transition">
-              <h3 className="text-xl font-semibold mb-4">Accessibility First</h3>
+          <FadeInUP delay={0.4}>
+          <div className="group p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md
+hover:-translate-y-3 hover:shadow-2xl hover:shadow-purple-500/10
+transition-all duration-500 ease-out cursor-pointer">
+              <h3 className="text-xl font-semibold mb-4">
+                Accessibility First
+              </h3>
               <p className="text-gray-400">
-                Designed for diverse cognitive, sensory, and physical needs —
-                enabling inclusive education.
+                Built to empower learners with diverse sensory,
+                cognitive and physical needs.
               </p>
             </div>
-          </FadeInUp>
+          </FadeInUP>
 
         </div>
 
       </Container>
+
     </section>
   );
 }

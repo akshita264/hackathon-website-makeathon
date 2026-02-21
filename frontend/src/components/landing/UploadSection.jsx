@@ -1,128 +1,119 @@
 import { useState } from "react";
 import Container from "../ui/Container";
-import FadeInUp from "../animations/FadeInUP";
+import FadeInUP from "../animations/FadeInUP";
 
 export default function UploadSection() {
-  const [level, setLevel] = useState("Beginner");
   const [file, setFile] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [stage, setStage] = useState("idle"); 
+  // idle | processing | text | audio | video | done
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
+    const selected = e.target.files[0];
+    if (!selected) return;
 
-    setFile(selectedFile);
-    simulateProcessing();
-  };
+    setFile(selected);
+    setStage("processing");
 
-  const simulateProcessing = () => {
-    setIsProcessing(true);
-
-    // Fake 3-second AI processing
-    setTimeout(() => {
-      setIsProcessing(false);
-    }, 3000);
+    setTimeout(() => setStage("text"), 1500);
+    setTimeout(() => setStage("audio"), 3000);
+    setTimeout(() => setStage("video"), 4500);
+    setTimeout(() => setStage("done"), 5500);
   };
 
   return (
-    <section className="py-32 bg-gradient-to-b from-black to-neutral-900 text-white">
+   <section
+  id="upload"
+  className="py-32 bg-black text-white relative"
+>
       <Container>
 
-        <FadeInUp>
-          <h2 className="text-3xl md:text-5xl font-bold text-center">
-            Transform Any Lesson{" "}
-            <span className="text-purple-500">Instantly</span>
-          </h2>
-        </FadeInUp>
+        <FadeInUP>
+          <div className="text-center max-w-3xl mx-auto">
+            <p className="text-purple-400 text-xs tracking-[0.35em] uppercase mb-6">
+              Start Transforming
+            </p>
 
-        <FadeInUp delay={0.2}>
-          <p className="text-center text-gray-400 mt-6 max-w-2xl mx-auto">
-            Upload your study material and let our AI generate personalized,
-            accessible learning formats in seconds.
-          </p>
-        </FadeInUp>
+            <h2 className="text-4xl md:text-5xl font-semibold">
+              Upload Your Lesson
+            </h2>
 
-        <FadeInUp delay={0.3}>
-          <div className="mt-16 max-w-3xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-10 backdrop-blur-lg">
+            <p className="mt-6 text-gray-400 text-lg">
+              AI adapts your material into text, audio, and video outputs.
+            </p>
+          </div>
+        </FadeInUP>
 
-            {/* Cognitive Level Selector */}
-            <div className="mb-10 text-center">
-              <p className="text-sm text-gray-400 mb-4">
-                Select Learning Level:
-              </p>
+        <FadeInUP delay={0.2}>
+          <div className="mt-16 max-w-3xl mx-auto">
 
-              <div className="flex justify-center gap-4">
-                {["Beginner", "Intermediate", "Advanced"].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => setLevel(item)}
-                    className={`px-6 py-2 rounded-full text-sm font-medium transition ${
-                      level === item
-                        ? "bg-purple-600 text-white"
-                        : "border border-white/20 text-gray-300 hover:bg-white/10"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {stage === "idle" && (
+              <label className="flex flex-col items-center justify-center h-56 border-2 border-dashed border-white/20 rounded-3xl bg-white/5 backdrop-blur-lg cursor-pointer hover:border-purple-500/40 transition">
+                <p className="text-gray-400">
+                  Drag & Drop PDF or Click to Upload
+                </p>
+                <input
+                  type="file"
+                  accept=".pdf"
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
+              </label>
+            )}
 
-            {/* Upload Area */}
-            <label className="block border-2 border-dashed border-purple-500/40 rounded-xl p-12 text-center cursor-pointer hover:border-purple-500 transition">
-              <input
-                type="file"
-                accept=".pdf"
-                className="hidden"
-                onChange={handleFileChange}
-              />
+            {(stage === "processing" ||
+              stage === "text" ||
+              stage === "audio" ||
+              stage === "video" ||
+              stage === "done") && (
+              <div className="space-y-6">
 
-              {file ? (
-                <div>
-                  <p className="text-lg font-medium text-purple-400">
-                    {file.name}
-                  </p>
-                  <p className="text-gray-400 text-sm mt-2">
-                    Selected Level: {level}
-                  </p>
-                </div>
-              ) : (
-                <div>
-                  <p className="text-lg font-medium">
-                    Drag & Drop PDF Here
-                  </p>
-                  <p className="text-gray-400 text-sm mt-2">
-                    or click to upload
-                  </p>
-                </div>
-              )}
-            </label>
+                {/* Processing Indicator */}
+                {stage === "processing" && (
+                  <div className="text-purple-400 animate-pulse">
+                    Initializing AI Engine...
+                  </div>
+                )}
 
-            {/* AI Processing Status */}
-            {isProcessing && (
-              <div className="mt-10 space-y-4">
+                {/* Text */}
+                {["text", "audio", "video", "done"].includes(stage) && (
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-lg
+                  hover:-translate-y-2 transition-all duration-500">
+                    <h3 className="font-semibold mb-2">Text Notes Generated</h3>
+                    <p className="text-gray-400 text-sm">
+                      Structured and simplified lesson content ready.
+                    </p>
+                  </div>
+                )}
 
-                <ProcessingStep text="Analyzing Content Structure..." />
-                <ProcessingStep text="Adapting to Cognitive Level..." />
-                <ProcessingStep text="Generating Accessible Formats..." />
+                {/* Audio */}
+                {["audio", "video", "done"].includes(stage) && (
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-lg
+                  hover:-translate-y-2 transition-all duration-500">
+                    <h3 className="font-semibold mb-2">Audio Narration Created</h3>
+                    <p className="text-gray-400 text-sm">
+                      AI-generated voice explanation available.
+                    </p>
+                  </div>
+                )}
+
+                {/* Video */}
+                {["video", "done"].includes(stage) && (
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-lg
+                  hover:-translate-y-2 transition-all duration-500">
+                    <h3 className="font-semibold mb-2">Adaptive Video Rendered</h3>
+                    <p className="text-gray-400 text-sm">
+                      Personalized visual lesson ready.
+                    </p>
+                  </div>
+                )}
 
               </div>
             )}
 
           </div>
-        </FadeInUp>
+        </FadeInUP>
 
       </Container>
     </section>
-  );
-}
-
-/* Reusable Processing Step */
-function ProcessingStep({ text }) {
-  return (
-    <div className="flex items-center gap-4">
-      <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-      <p className="text-gray-300">{text}</p>
-    </div>
   );
 }
